@@ -478,7 +478,7 @@ calcFEdemand <- function(subtype = "FE") {
 
   if (subtype %in% c( "FE","FE_for_Eff","UE_for_Eff","ES")){
 
-    mapping_path <- toolMappingFile("sectoral","structuremappingIO_outputs.csv")
+    mapping_path <- toolMappingFile("sectoral","structuremappingIO_outputs_new.csv")
     mapping = read.csv2(mapping_path, stringsAsFactors = F)
 
     REMIND_dimensions = "REMINDitems_out"

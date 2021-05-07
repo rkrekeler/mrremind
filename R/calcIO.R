@@ -30,19 +30,19 @@ calcIO <- function(subtype) {
     mapping <- toolMappingFile("sectoral","structuremappingIO_inputs.csv") 
     target = c("REMINDitems_in","REMINDitems_out","REMINDitems_tech")
   } else if(subtype=="output"){
-    mapping <- toolMappingFile("sectoral","structuremappingIO_outputs.csv")   
+    mapping <- toolMappingFile("sectoral","structuremappingIO_outputs_new.csv")   
     target = c("REMINDitems_in","REMINDitems_out","REMINDitems_tech")
   } else if(subtype=="output_biomass"){
-    mapping <- toolMappingFile("sectoral","structuremappingIO_outputs.csv")   
+    mapping <- toolMappingFile("sectoral","structuremappingIO_outputs_new.csv")   
     target = c("REMINDitems_in","REMINDitems_out","REMINDitems_tech")
   } else if(subtype=="trade"){
     mapping <- toolMappingFile("sectoral","structuremappingIO_trade.csv")   
     target = c("REMINDitems_enty","REMINDitems_trade")
   } else if(subtype=="output_EDGE"){
-    mapping <- toolMappingFile("sectoral","structuremappingIO_outputs.csv")   
+    mapping <- toolMappingFile("sectoral","structuremappingIO_outputs_new.csv")   
     target = c("EDGEitems")
   } else if(subtype=="output_EDGE_buildings"){
-    mapping <- toolMappingFile("sectoral","structuremappingIO_outputs.csv")   
+    mapping <- toolMappingFile("sectoral","structuremappingIO_outputs_new.csv")   
     target = c("EDGE_buildings")
   } else if ('input_Industry_subsectors' == subtype) {
     mapping <- toolMappingFile(
@@ -55,7 +55,7 @@ calcIO <- function(subtype) {
       name = 'structuremappingIO_outputs_Industry_subsectors.csv')
     target <- c('REMINDitems_in', 'REMINDitems_out', 'REMINDitems_tech')
   } else if ('IEA_output' == subtype) {
-      mapping <- toolMappingFile("sectoral","structuremappingIO_outputs.csv")   
+      mapping <- toolMappingFile("sectoral","structuremappingIO_outputs_new.csv")   
       target = c("REMINDitems_in","REMINDitems_out","REMINDitems_tech","iea_product","iea_flows")
   } else if ('IEA_input' == subtype) {
       mapping <- toolMappingFile("sectoral","structuremappingIO_inputs.csv")   
