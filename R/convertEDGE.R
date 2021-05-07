@@ -59,6 +59,17 @@ convertEDGE <- function(x,subtype = "FE_stationary") {
   struct_mapping = struct_mapping[!is.na(struct_mapping$weight_convertEDGE),]
   struct_mapping = unique(struct_mapping[c( "weight_convertEDGE", "EDGEitems")])
   
+  # Ad-hoc fix for split of electricity into HP, RH and other
+  if (subtype == 'FE_buildings') {
+    struct_mapping <- rbind(
+      struct_mapping, 
+      data.frame(
+        weight_convertEDGE = 'elec',
+        EDGEitems = c('space_heating_elecRH_fe', 'space_heating_elecHP_fe', 'space_heating_elecRH_ue', 'space_heating_elecHP_ue')
+      ))
+    # x_rest <- x[,, !grepl('space_heating_elec', getNames(x))]
+    # x_elecHeating <- x[,, grepl('space_heating_elecRH|space_heating_elecHP', getNames(x))]
+  }
   
   if (subtype %in% c("FE_stationary","FE_buildings")){
     #---- Explanations

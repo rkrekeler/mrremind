@@ -484,6 +484,29 @@ calcFEdemand <- function(subtype = "FE") {
     REMIND_dimensions = "REMINDitems_out"
     sets_names = getSets(data)
 
+    # Ad-hoc fix for split of electricity into HP, RH and other
+    if (subtype == 'FE') {
+      mapping <- rbind(
+        mapping %>%
+          filter(!grepl('space_heating_elec', EDGEitems)), 
+        mapping %>%
+          filter(grepl('space_heating_elec', EDGEitems)) %>%
+          mutate(EDGEitems = gsub('elec', 'elecRH', EDGEitems)),
+        mapping %>%
+          filter(grepl('space_heating_elec', EDGEitems)) %>%
+          mutate(EDGEitems = gsub('elec', 'elecHP', EDGEitems)))
+      mapping <- bind_rows(
+        mapping,
+        mapping %>%
+          filter(REMINDitems_out == 'feelb', !grepl('space_heating_elec', EDGEitems)) %>%
+          mutate(REMINDitems_out = 'feelcb'),
+        data.frame(
+          REMINDitems_out = c('feelhpb', 'feelrhb'),
+          EDGEitems = c('space_heating_elecHP_fe', 'space_heating_elecRH_fe'),
+          weight_Fedemand = as.character(1))
+      )
+    }
+  
     } else if (subtype %in% c("EsUeFe_in","EsUeFe_out")){
 
       mapping_path <- toolMappingFile("sectoral","structuremappingIO_EsUeFe.csv")
@@ -536,7 +559,7 @@ calcFEdemand <- function(subtype = "FE") {
   mapping = na.omit(mapping[c("EDGEitems",REMIND_dimensions,"weight_Fedemand")])
   mapping = mapping[which(mapping$EDGEitems %in% edge_names),]
   mapping = unique(mapping)
-
+  
 
   magpnames = mapping[REMIND_dimensions]
   magpnames <- unique(magpnames)
